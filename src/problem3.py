@@ -3,10 +3,11 @@ PRACTICE Exam 1, problem 3.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Valerie Galluzzi, Mark Hays, Amanda Stouder, Aaron Wilkin,
-         their colleagues, and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues, and Zeyu Liao.
+"""  # done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
+import math
 
 ###############################################################################
 # Students:
@@ -38,7 +39,7 @@ def main():
 def run_test_problem3a():
     """ Tests the   problem3a   function. """
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement this TEST function.
+    # done: 2. Implement this TEST function.
     #   It TESTS the  problem1a  function defined below.
     #   Include at least **   5   ** tests (we wrote four for you).
     # -------------------------------------------------------------------------
@@ -95,6 +96,13 @@ def run_test_problem3a():
     print()
     print('Test 4 expected:', expected)
     print('       actual:  ', answer)
+    # Test 5 (it is on window 3):
+    point = rg.Point(70, 90)
+    expected = 16
+    answer = problem3a(window3, point, 4)
+    print()
+    print('Test 4 expected:', expected)
+    print('       actual:  ', answer)
 
     window3.close_on_mouse_click()
 
@@ -106,6 +114,25 @@ def run_test_problem3a():
 
 
 def problem3a(window, point, n):
+    th = 1
+    kk = 0
+    a = point.x
+    b = point.y
+    for k in range(n):
+        l = rg.Line(rg.Point(a, b), rg.Point(a, b + 50))
+        a = a + 20
+        b = b + 10
+        if k < 6:
+            l.thickness = th
+            kk = kk + th
+            th = th + 2
+        elif k >= 6:
+            l.thickness = 13
+            kk = kk + 13
+
+        l.attach_to(window)
+    window.render()
+    return kk
     """
     See   problem3a_picture.pdf   in this project for pictures
     that may help you better understand the following specification:
@@ -138,7 +165,7 @@ def problem3a(window, point, n):
         :type n:      int
     """
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # done: 3. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
@@ -166,6 +193,18 @@ def run_test_problem3b():
 
 
 def problem3b(m, point1):
+    window = rg.RoseWindow(400,650)
+    a = 0
+    n = 3
+    b = point1.x
+    c = point1.y
+    for k in range(m):
+        problem3a(window,rg.Point(b, c),n)
+        a = a + problem3a(window,rg.Point(b, c) ,n)
+        n = n + 2
+        c = c + k * 60
+    window.close_on_mouse_click()
+    return a
     """
     See   problem3b_picture.pdf   in this project for pictures
     that may help you better understand the following specification:
