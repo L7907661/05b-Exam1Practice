@@ -3,8 +3,8 @@ PRACTICE Exam 1, problem 2.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Valerie Galluzzi, Mark Hays, Amanda Stouder, Aaron Wilkin,
-         their colleagues, and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues, and Zeyu Liao.
+"""  # done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -74,6 +74,19 @@ def run_test_problem2a():
 
 
 def problem2a(circle, rectangle, window):
+    circle.attach_to(window)
+    rectangle.attach_to(window)
+    window.render()
+    window.continue_on_mouse_click()
+    a = rectangle._upper_right_corner
+    b = rectangle.get_lower_left_corner()
+    l = rg.Line(a, b)
+    l.arrow = 'last'
+    l.attach_to(window)
+    window.render()
+    window.continue_on_mouse_click()
+    circle.fill_color = rectangle.outline_color
+    window.render()
     """
     See   problem2a_picture.pdf   in this project for pictures
     that may help you better understand the following specification:
@@ -103,7 +116,7 @@ def problem2a(circle, rectangle, window):
       :type window:    rg.RoseWindow
     """
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # done: 2. Implement and test this function.
     #          Tests have been written for you (above).
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
@@ -145,6 +158,20 @@ def run_test_problem2b():
 
 
 def problem2b(rect, n, delta, win):
+    lx = rect.get_upper_left_corner().x
+    ly = rect.get_upper_left_corner().y
+    rx = rect.get_lower_right_corner().x
+    ry = rect.get_lower_right_corner().y
+    for k in range(n):
+        re = rg.Rectangle(rg.Point(lx,ly),rg.Point(rx,ry))
+        if k == 0:
+           re.fill_color = rect.fill_color
+        re.attach_to(win)
+        lx = lx - delta
+        ly = ly - delta
+        rx = rx + delta
+        ry = ry + delta
+    win.render()
     """
     See   problem2b_picture.pdf   in this project for pictures
     that may help you better understand the following specification:
@@ -174,7 +201,7 @@ def problem2b(rect, n, delta, win):
       :type win:    rg.RoseWindow
     """
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # done: 3. Implement and test this function.
     #          Tests have been written for you (above).
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
